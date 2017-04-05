@@ -3,6 +3,11 @@ package imageReader;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class is used to read bits from an image. It keeps track of the current pixel and color byte being written to automatically.
+ * @author liamdasilva
+ *
+ */
 public class IMGWriter {
 	private BufferedImage img;
 	private int curWidth = 0;
@@ -12,21 +17,52 @@ public class IMGWriter {
 	private int r;
 	private int g;
 	private int b;
+	private int bits;
 	int intToAnd;
 	
+	/**
+	 * Default constructor
+	 */
 	public IMGWriter(){
 		
 	}
 	
+	/**
+	 * Constructor to create new IMGWriter
+	 * @param img (BufferedImage) the image to be encoded into
+	 * @param bits (int) the bit encoding to be used
+	 */
 	public IMGWriter(BufferedImage img,int bits){
 		this.img = img;
 		this.curColor = new Color(img.getRGB(curWidth, curHeight));
 		curColorByte=0;
 		this.intToAnd = 256- (int)Math.pow(2, bits);
+		this.bits = bits;
 //		System.out.println("INTTOAND: "+intToAnd);
 	}
 	
-	public void insertByte(int intToOr){
+	/**
+	 * Inserts x bits into next byte of the image, where x is the number of bits the object was initialized with.
+	 * @param nextBits
+	 * @return (boolean) whether successful or not
+	 */
+	public boolean insertBits(String nextBits){
+		if (nextBits.length()==this.bits){
+			String blockToOr=String.format("%8s", nextBits).replace(' ', '0');
+			int intToOr=Integer.parseInt(blockToOr, 2);
+			insertByte(intToOr);
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * Inserts a byte into the image. The byte given should be padded with zeroes.
+	 * @param intToOr
+	 */
+	private void insertByte(int intToOr){
 		if (curColorByte==3){
 			Color newc = new Color(r,g,b,curColor.getAlpha());
 			img.setRGB(curWidth, curHeight, newc.getRGB());
@@ -66,6 +102,10 @@ public class IMGWriter {
 		curColorByte++;
 	}
 	
+	/**
+	 * Returns the (BufferedImage) image object
+	 * @return the (BufferedImage) image object
+	 */
 	public BufferedImage getIMG(){
 		return img;
 	}
