@@ -11,11 +11,11 @@ import javax.imageio.ImageIO;
 
 public class readImage {
 
-	public static void main(String[] args) {
-		String imageName = "/Users/liamdasilva/Desktop/sunset/splash.png";
-		String fileName = "/Users/liamdasilva/Desktop/EURUSD60.csv";
-		String outImage = "/Users/liamdasilva/Desktop/sunset/testing.png";
-		String outFile = "/Users/liamdasilva/Desktop/sunset/EURUSD60.csv";
+	public static void main(String imageName, String fileName, String outImage, String outFile) {
+//		imageName = "/Users/liamdasilva/Desktop/sunset/splash.png";
+//		fileName = "/Users/liamdasilva/Desktop/EURUSD60.csv";
+//		outImage = "/Users/liamdasilva/Desktop/sunset/testing.png";
+//		outFile = "/Users/liamdasilva/Desktop/sunset/EURUSD60.csv";
 		int bitsToEncode = 3;
 		
 		System.out.println(NumberFormat.getNumberInstance(Locale.US)
