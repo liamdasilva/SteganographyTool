@@ -36,6 +36,14 @@ public class readImage {
 //		if (!(result3==-1)){
 //			System.out.println(NumberFormat.getNumberInstance(Locale.US).format(result3)+" bytes successfully read.");
 //		}
+				
+	}
+	
+	public static void encodeImage(int bitsToEncode, String imageName, String fileName, String outImage, String outFile){
+		int result = Utilities.insertFileIntoImage(imageName,fileName,bitsToEncode,outImage);
+		if (!(result==-1)){
+			System.out.println(NumberFormat.getNumberInstance(Locale.US).format(result)+" bytes successfully encoded.");
+		}
 	}
 
 }

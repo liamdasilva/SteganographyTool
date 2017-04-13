@@ -56,7 +56,7 @@ public class EncryptFile {
     public static byte[] encryptText(String inputFilePath,SecretKey secKey) throws Exception{
         // AES defaults to AES/ECB/PKCS5Padding in Java 7
     	byte[] inputBytes = Files.readAllBytes(new File(inputFilePath).toPath());
-    	Cipher aesCipher = Cipher.getInstance("AES");
+    	Cipher aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         aesCipher.init(Cipher.ENCRYPT_MODE, secKey);
         byte[] byteCipherText = aesCipher.doFinal(inputBytes);
         return byteCipherText;

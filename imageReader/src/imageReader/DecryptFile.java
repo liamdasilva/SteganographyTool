@@ -36,7 +36,7 @@ public class DecryptFile {
      */
     public static byte[] decryptText(byte[] byteCipherText, SecretKey secKey) throws Exception {
         // AES defaults to AES/ECB/PKCS5Padding in Java 7
-        Cipher aesCipher = Cipher.getInstance("AES");
+        Cipher aesCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         aesCipher.init(Cipher.DECRYPT_MODE, secKey);
         System.out.println(byteCipherText.length);
         byte[] byteFinal = byteCipherText;
