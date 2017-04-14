@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -191,95 +192,47 @@ public class PanelReceiver {
 	    
 	    btnInputPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	JFileChooser fileChooser = new JFileChooser();
-            	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-            	FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            	        "PNG Images", "png");
-            	    fileChooser.setFileFilter(filter);
-            	int result = fileChooser.showOpenDialog(frame);
-            	if (result == JFileChooser.APPROVE_OPTION) {
-            	    File selection = fileChooser.getSelectedFile();
-            	    txtInputPath.setText(selection.getPath());
-            	}
-	            if(txtInputPath.getText().length() == 0 || txtOutputPath.getText().length() == 0 || txtOutputFile.getText().length() == 0)
-	                btnSubmit.setEnabled(false);
-	            else{
-	                btnSubmit.setEnabled(true);
-	            }
-	    	    try {
-	    			BufferedImage img = ImageIO.read(new File(txtInputPath.getText()));
-	    			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth()*GUI.PIC_WIDTH_SCALE+0.5), (int)(GUI.pnlPic.getHeight()*GUI.PIC_HEIGHT_SCALE+0.5), Image.SCALE_DEFAULT);
-	    			ImageIcon imgIcon = new ImageIcon(scaledImg);
-	    			GUI.inputPic.setIcon(imgIcon);
-	    			GUI.lblNotFound.setText("");
-	    		} catch (IOException e) {
-	    			// TODO Auto-generated catch block
-	    			GUI.lblNotFound.setText("No preview image available");
-	    			GUI.inputPic.setIcon(null);
-	    			
-//	    			e.printStackTrace();
-	    		}
-	            
+            	UtilitiesGUI.chooseImage(frame, txtInputPath);
+            	UtilitiesGUI.refreshPicture(txtInputPath);
+            	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
             }
         });
-        
+	    
         btnOutputPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	JFileChooser fileChooser = new JFileChooser();
-            	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-            	fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            	int result = fileChooser.showOpenDialog(frame);
-            	if (result == JFileChooser.APPROVE_OPTION) {
-            	    File selection = fileChooser.getSelectedFile();
-            	    txtOutputPath.setText(selection.getPath());
-            	}
-	            if(txtInputPath.getText().length() == 0 || txtOutputPath.getText().length() == 0 || txtOutputFile.getText().length() == 0)
-	                btnSubmit.setEnabled(false);
-	            else{
-	                btnSubmit.setEnabled(true);
-	            }
+            	UtilitiesGUI.chooseFolder(frame, txtOutputPath);
+            	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
             }
         });
     
         txtInputPath.addKeyListener(new KeyAdapter() {
 	        public void keyReleased(KeyEvent e) { //watch for key strokes
-	            if(txtInputPath.getText().length() == 0 || txtOutputPath.getText().length() == 0 || txtOutputFile.getText().length() == 0)
-	                btnSubmit.setEnabled(false);
-	            else{
-	                btnSubmit.setEnabled(true);
-	            }
-	    	    try {
-	    			BufferedImage img = ImageIO.read(new File(txtInputPath.getText()));
-	    			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth()*GUI.PIC_WIDTH_SCALE+0.5), (int)(GUI.pnlPic.getHeight()*GUI.PIC_HEIGHT_SCALE+0.5), Image.SCALE_DEFAULT);
-	    			ImageIcon imgIcon = new ImageIcon(scaledImg);
-	    			GUI.inputPic.setIcon(imgIcon);
-	    			GUI.lblNotFound.setText("");
-	    		} catch (IOException err) {
-	    			// TODO Auto-generated catch block
-	    			GUI.lblNotFound.setText("No preview image available");
-	    			GUI.inputPic.setIcon(null);
-//	    			err.printStackTrace();
-	    		}
+		        UtilitiesGUI.refreshPicture(txtInputPath);
+	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
 	        }
 	    });
         
         txtOutputPath.addKeyListener(new KeyAdapter() {
 	        public void keyReleased(KeyEvent e) { //watch for key strokes
-	            if(txtInputPath.getText().length() == 0 || txtOutputPath.getText().length() == 0 || txtOutputFile.getText().length() == 0)
-	                btnSubmit.setEnabled(false);
-	            else{
-	                btnSubmit.setEnabled(true);
-	            }
+	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
 	        }
 	    });
         
         txtOutputFile.addKeyListener(new KeyAdapter() {
 	        public void keyReleased(KeyEvent e) { //watch for key strokes
-	        	if(txtInputPath.getText().length() == 0 || txtOutputPath.getText().length() == 0 || txtOutputFile.getText().length() == 0)
-	                btnSubmit.setEnabled(false);
-	            else{
-	                btnSubmit.setEnabled(true);
-	            }
+	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
+	        }
+	    });
+        
+        txtBits.addKeyListener(new KeyAdapter() {
+	        public void keyReleased(KeyEvent e) { //watch for key strokes
+	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
+	        }
+	    });
+
+        txtKey.addKeyListener(new KeyAdapter() {
+	        public void keyReleased(KeyEvent e) { //watch for key strokes
+	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
 	        }
 	    });
         
@@ -306,7 +259,11 @@ public class PanelReceiver {
             	}		    				
             }
         });	    
+	    
         return pnlRcv;
 	}
+	
 
 }
+
+

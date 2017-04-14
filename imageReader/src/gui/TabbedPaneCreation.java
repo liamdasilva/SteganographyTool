@@ -189,7 +189,10 @@ public class TabbedPaneCreation {
 	
 			String sndOutputFileCompletePath = sndOutputPath.getText() + "\\" + sndOutputFile.getText();
 			String sndMsgExt = sndMsgPath.getText().substring(sndMsgPath.getText().lastIndexOf(".")+1);
-			String curOutputFileNoExt = curOutputFile.getText().substring(0, curOutputFile.getText().lastIndexOf("."));
+			String curOutputFileNoExt = null;
+			if (!curOutputFile.getText().isEmpty()){
+				curOutputFileNoExt = curOutputFile.getText().substring(0, curOutputFile.getText().lastIndexOf("."));
+			}
 			
 			curInputPath.setText(sndOutputFileCompletePath);
 			curOutputPath.setText(sndOutputPath.getText());
