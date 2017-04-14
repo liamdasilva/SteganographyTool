@@ -1,4 +1,4 @@
-package imageReader;
+package modes;
 
 import java.awt.Image;
 import java.io.BufferedReader;

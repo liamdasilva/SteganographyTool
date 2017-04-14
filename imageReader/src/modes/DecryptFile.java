@@ -1,4 +1,4 @@
-package imageReader;
+package modes;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,19 +12,19 @@ public class DecryptFile {
     /**
      * Use key from encryption to decrypt the file 
      */
-    public static void main(String inputFilePath, String outputFileFolder, String decryptedFile, SecretKey secKey) throws Exception {
-
-    	byte[] inputBytes = Files.readAllBytes(new File(inputFilePath).toPath());
-        byte[] decryptedText = decryptText(inputBytes, secKey);
-        
-        
-        File file = new File(decryptedFile);
-        FileOutputStream fos = new FileOutputStream(decryptedFile);
-        try {
-            fos.write(decryptedText);
-        } finally {
-            fos.close();
-        }            
+//    public static void main(String inputFilePath, String outputFileFolder, String int bitsToDecode, String decryptedFile, SecretKey secKey) throws Exception {
+    public static void main(String imageName, String outFolder, String outFile, String keyString) throws Exception { 
+//    	byte[] inputBytes = Files.readAllBytes(new File(inputFilePath).toPath());
+//        byte[] decryptedText = decryptText(inputBytes, secKey);
+//        
+//        
+//        File file = new File(decryptedFile);
+//        FileOutputStream fos = new FileOutputStream(decryptedFile);
+//        try {
+//            fos.write(decryptedText);
+//        } finally {
+//            fos.close();
+//        }            
     }
 	
 	/**

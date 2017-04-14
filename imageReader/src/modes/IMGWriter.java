@@ -1,4 +1,4 @@
-package imageReader;
+package modes;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

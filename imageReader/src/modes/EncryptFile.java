@@ -1,12 +1,14 @@
-package imageReader;
+package modes;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 /**Used code taken from: 
@@ -22,12 +24,23 @@ public class EncryptFile {
      * by encrypted and kept safe. The same key is required for decryption.
      * 3.
      */
-    public static SecretKey main(String inputFilePath, String outputFileFolder, String encryptedFile) throws Exception {
+    public static void main(String inputFilePath, String outputFileFolder, String encryptedFile, String keyString) throws Exception {
 
-    	SecretKey secKey = getSecretEncryptionKey();
+//		String outputFileNoExt = txtOutputPic.getText().substring(0, txtOutputPic.getText().lastIndexOf("."));
+//		String inputFileNameOnly = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf("\\"), txtMsgPath.getText().lastIndexOf("."));
+//		String inputFileExt = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf(".")+1);
+//		String decodedOutputFile = outputFileNoExt + "." + inputFileExt;
+//		String encryptedFile = txtOutputPath.getText() + inputFileNameOnly + " - AES-encrypted." + inputFileExt;
+//		String decryptedFile = outputFileNoExt + " - AES-decrypted." + inputFileExt;
+    	
+
+    	// decode the base64 encoded string
+    	byte[] decodedKey = Base64.getDecoder().decode(keyString);
+    	// rebuild key using SecretKeySpec
+    	SecretKey secKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+    	System.out.println("AES Key (Hex Form):" + bytesToHex(secKey.getEncoded()));
+    	
         byte[] cipherText = encryptText(inputFilePath, secKey);
-        
-        System.out.println("AES Key (Hex Form):" + bytesToHex(secKey.getEncoded()));
         
 	    File file = new File(encryptedFile);
         FileOutputStream fos = new FileOutputStream(encryptedFile);
@@ -36,15 +49,14 @@ public class EncryptFile {
         } finally {
             fos.close();
         }
-        return secKey;
     }
      
-    public static SecretKey getSecretEncryptionKey() throws Exception{
-        KeyGenerator generator = KeyGenerator.getInstance("AES");
-        generator.init(128); // The AES key bit size
-        SecretKey secKey = generator.generateKey();
-        return secKey;
-    }
+//    public static SecretKey getSecretEncryptionKey() throws Exception{
+//        KeyGenerator generator = KeyGenerator.getInstance("AES");
+//        generator.init(128); // The AES key bit size
+//        SecretKey secKey = generator.generateKey();
+//        return secKey;
+//    }
      
     /**
      * Encrypts inputFile in AES using the secret key
