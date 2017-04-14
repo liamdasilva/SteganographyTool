@@ -115,7 +115,7 @@ public static void addTabbedPane(JFrame frame, Container pane){
 	            		
             			break;
 	            case 3: 
-	            		c = retrieveComponent(pnlAtk, 1);	//1 = txt input picture
+	            		c = retrieveComponent(pnlMisc, 1);	//1 = txt input picture
 	            		curPanel = pnlMisc;
 	            		frame.setTitle("Steganografun - Testing-for-Fun");
 	            		GUI.pnlPic.setBackground(Color.decode(GUI.M_PIC_COLOUR));
