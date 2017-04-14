@@ -34,10 +34,10 @@ public class EncryptFile {
 //		String decryptedFile = outputFileNoExt + " - AES-decrypted." + inputFileExt;
     	
 
-    	// decode the base64 encoded string
+    	// decode the base64 encoded string and rebuild as a secretkey
     	byte[] decodedKey = Base64.getDecoder().decode(keyString);
-    	// rebuild key using SecretKeySpec
     	SecretKey secKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+    	
     	System.out.println("AES Key (Hex Form):" + bytesToHex(secKey.getEncoded()));
     	
         byte[] cipherText = encryptText(inputFilePath, secKey);
@@ -50,13 +50,6 @@ public class EncryptFile {
             fos.close();
         }
     }
-     
-//    public static SecretKey getSecretEncryptionKey() throws Exception{
-//        KeyGenerator generator = KeyGenerator.getInstance("AES");
-//        generator.init(128); // The AES key bit size
-//        SecretKey secKey = generator.generateKey();
-//        return secKey;
-//    }
      
     /**
      * Encrypts inputFile in AES using the secret key
@@ -82,4 +75,13 @@ public class EncryptFile {
     private static String  bytesToHex(byte[] hash) {
         return DatatypeConverter.printHexBinary(hash);
     }
+    
+//  public static SecretKey getSecretEncryptionKey() throws Exception{
+//  KeyGenerator generator = KeyGenerator.getInstance("AES");
+//  generator.init(128); // The AES key bit size
+//  SecretKey secKey = generator.generateKey();
+//  return secKey;
+//}
+
+    
 }

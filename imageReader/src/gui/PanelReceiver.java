@@ -295,24 +295,8 @@ public class PanelReceiver {
             			e.printStackTrace();
             		}            		
             	}else if(rbtnDecrypt.isSelected()){
-        			//this string manipulation is done so that the end result is: "[outputFilePath][outputFileName].[inputFileExtension] 
-
-            		//w.i.p.
-//            		String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
-//            		String inputFileNameOnly = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf("\\"), txtMsgPath.getText().lastIndexOf("."));
-//        			String inputFileExt = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf(".")+1);
-//        			String decodedOutputFile = outputFileNoExt + "." + inputFileExt;
-//        			String encryptedFile = txtOutputPath.getText() + inputFileNameOnly + " - AES-encrypted." + inputFileExt;
-//        			String decryptedFile = outputFileNoExt + " - AES-decrypted." + inputFileExt;
-//        			
+        			
     				try {
-//						SecretKey secKey = EncryptFile.main(txtMsgPath.getText(),txtOutputPath.getText(), encryptedFile);
-//						//call function to encode + decode image
-//            			readImage.main(
-//            					txtInputPath.getText(), 
-//            					txtMsgPath.getText(), 
-//            					txtOutputPath.getText() + "\\" + txtOutputFile.getText(), 
-//            					txtOutputPath.getText() + "\\" + decodedOutputFile);
 						DecryptFile.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), txtKey.getText());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

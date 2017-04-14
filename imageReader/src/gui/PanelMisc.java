@@ -141,7 +141,7 @@ public class PanelMisc {
 		pnlModes.setLayout(new GridLayout(4,2));
 	    pnlModes.setBorder(new TitledBorder("Mode Selection"));
 
-	    String encodeString = "Encode picture with message";
+	    String encodeString = "hmm. what else";
 	    String allBitsString = "Test all possible bit encodings on a picture";
 	    
 	    JRadioButton rbtnEncode = new JRadioButton(encodeString);
