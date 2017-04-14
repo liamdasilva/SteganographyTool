@@ -295,11 +295,12 @@ public class PanelReceiver {
             			e.printStackTrace();
             		}            		
             	}else if(rbtnDecrypt.isSelected()){
-        			
     				try {
+    					DecodeImage.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()), txtKey.getText());
 						DecryptFile.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), txtKey.getText());
+						JOptionPane.showMessageDialog(frame,"Image decrypting successful! \nPlease view results in output file location: " + txtOutputPath.getText(),"Success!",1);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(frame,"Image decrypting unsuccessful. Please try again." + txtOutputPath.getText(),"Failure",0);						
 						e.printStackTrace();
 					}
             	}		    				

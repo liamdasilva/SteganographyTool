@@ -28,6 +28,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import modes.EncodeImage;
+import modes.EncryptFile;
 import modes.SignFile;
 
 public class PanelSender {
@@ -362,14 +363,12 @@ public class PanelSender {
 //        			String decryptedFile = outputFileNoExt + " - AES-decrypted." + inputFileExt;
         			
     				try {
-
-    					
-    					
-//						SecretKey secKey = EncryptFile.main(txtMsgPath.getText(),txtOutputPath.getText(), encryptedFile);
-//            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()), txtKey.getText());						
-//						DecryptFile.main(txtOutputPath.getText() + "\\" + decodedOutputFile, txtOutputPath.getText(), decryptedFile, secKey);
+    					EncryptFile.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), txtKey.getText());
+            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()));
+    					JOptionPane.showMessageDialog(frame,"Image encrypting successful! \nPlease view results in output file location: " + txtOutputPath.getText(),"Success!",1);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(frame,"Image encrypting unsuccessful. Please try again." + txtOutputPath.getText(),"Failure",0);
 						e.printStackTrace();
 					}
     				    				

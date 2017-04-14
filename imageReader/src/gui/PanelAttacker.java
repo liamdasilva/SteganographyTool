@@ -73,7 +73,7 @@ public class PanelAttacker {
 	    c.gridy = 1;
 	    pnlParams.add(txtOutputPath, c);
 	    	    
-	    JLabel lblOutputFile = new JLabel("Output Picture Filename");
+	    JLabel lblOutputFile = new JLabel("Output Filename");
 	    lblOutputFile.setHorizontalAlignment(0);
 	    lblOutputFile.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 	    c.fill = GridBagConstraints.HORIZONTAL;
