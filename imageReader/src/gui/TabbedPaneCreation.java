@@ -84,20 +84,20 @@ public class TabbedPaneCreation {
 		                    break;
 		            case 1: 
 		            		c = retrieveComponent(pnlRcv, 1);	//1 = 			txt input picture
-		            		d = retrieveComponent(pnlSend, 3); 	//3 = sender	txt input file (needed to get file extension)
-		            		e = retrieveComponent(pnlSend, 5);  //5 = sender	txt output path	
-		            		f = retrieveComponent(pnlSend, 7);	//7 = sender	txt output filename
-		            		g = retrieveComponent(pnlSend, 9);  //9 = sender	txt bits encoded with
-		            		h = retrieveComponent(pnlSend, 11);  //11 = sender	txt key
+		            		d = retrieveComponent(pnlSend, 4); 	//4 = sender	txt input file (needed to get file extension)
+		            		e = retrieveComponent(pnlSend, 6);  //6 = sender	txt output path	
+		            		f = retrieveComponent(pnlSend, 8);	//8 = sender	txt output filename
+		            		g = retrieveComponent(pnlSend, 10);  //10 = sender	txt bits encoded with
+		            		h = retrieveComponent(pnlSend, 12);  //12 = sender	txt key
 		            		curPanel = pnlRcv;
 		            		frame.setTitle("Steganografun - Bob-o-Vision");
 		            		GUI.pnlPic.setBackground(Color.decode(GUI.R_PIC_COLOUR));
 		    	        	
 		            		if (c instanceof JTextField && d instanceof JTextField && e instanceof JTextField && f instanceof JTextField && g instanceof JTextField && h instanceof JTextField){     
-		    	        		picChangeWhenTab((JTextField)c);
 		    	        		if (curIndex != 0){
 		    	        			transferSenderInput(curPanel, curIndex, (JTextField)d, (JTextField)e, (JTextField)f, (JTextField)g, (JTextField)h);	
 		    	        		}
+		    	        		picChangeWhenTab((JTextField)c);
 		    	        	}else{
 		    	        		System.out.println("Error: See tabbedPane change listener - component found is not a textfield");
 		    	        	}
@@ -110,19 +110,19 @@ public class TabbedPaneCreation {
 		            		break;
 		            case 2: 
 		            		c = retrieveComponent(pnlAtk, 1);	//1 = txt input picture
-		            		d = retrieveComponent(pnlSend, 3); 	//3 = sender	txt input file (needed to get file extension)
-		            		e = retrieveComponent(pnlSend, 5);  //5 = sender	txt output path	
-		            		f = retrieveComponent(pnlSend, 7);	//7 = sender	txt output filename
-		            		g = retrieveComponent(pnlSend, 9);  //9 = sender	txt bits encoded with
+		            		d = retrieveComponent(pnlSend, 4); 	//4 = sender	txt input file (needed to get file extension)
+		            		e = retrieveComponent(pnlSend, 6);  //6 = sender	txt output path	
+		            		f = retrieveComponent(pnlSend, 8);	//8 = sender	txt output filename
+		            		g = retrieveComponent(pnlSend, 10);  //10 = sender	txt bits encoded with
 		            		curPanel = pnlAtk;
 		            		frame.setTitle("Steganografun - Eve-o-Vision");
 		            		GUI.pnlPic.setBackground(Color.decode(GUI.A_PIC_COLOUR));
 
 		            		if (c instanceof JTextField && d instanceof JTextField && e instanceof JTextField && f instanceof JTextField && g instanceof JTextField){     
-		    	        		picChangeWhenTab((JTextField)c);
 		    	        		if (curIndex != 0){
 		    	        			transferSenderInput(curPanel, curIndex, (JTextField)d, (JTextField)e, (JTextField)f, (JTextField)g, (JTextField)h);	
 		    	        		}
+		    	        		picChangeWhenTab((JTextField)c);
 		    	        	}else{
 		    	        		System.out.println("Error: See tabbedPane change listener - component found is not a textfield");
 		    	        	}
@@ -189,6 +189,10 @@ public class TabbedPaneCreation {
 	
 			String sndOutputFileCompletePath = sndOutputPath.getText() + "\\" + sndOutputFile.getText();
 			String sndMsgExt = sndMsgPath.getText().substring(sndMsgPath.getText().lastIndexOf(".")+1);
+			if (sndMsgPath.getText().lastIndexOf("\\") == -1){ //signature must have been used
+				sndMsgExt = "txt";
+			}
+			
 			String curOutputFileNoExt = null;
 			if (!curOutputFile.getText().isEmpty()){
 				curOutputFileNoExt = curOutputFile.getText().substring(0, curOutputFile.getText().lastIndexOf("."));
@@ -226,8 +230,6 @@ public class TabbedPaneCreation {
 							curBits = (JTextField)f;
 							curBits.setText(sndBits.getText());
 						}
-						
-					
 			}
 			
 		}else{

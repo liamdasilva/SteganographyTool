@@ -16,11 +16,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
-/**Used code taken from: 
- * https://www.quickprogrammingtips.com/java/how-to-encrypt-and-decrypt-data-in-java-using-aes-algorithm.html 
- */
-
-
 public class EncryptFile {
 		  
     /**
@@ -29,7 +24,7 @@ public class EncryptFile {
      * by encrypted and kept safe. The same key is required for decryption.
      * 3.
      */
-    public static void main(String inputFilePath, String outputFileFolder, String encryptedFile, String keyString) throws Exception {
+    public static void main(String inputFilePath, String encryptedFile, String keyString) throws Exception {
 
 //		String outputFileNoExt = txtOutputPic.getText().substring(0, txtOutputPic.getText().lastIndexOf("."));
 //		String inputFileNameOnly = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf("\\"), txtMsgPath.getText().lastIndexOf("."));

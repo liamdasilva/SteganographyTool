@@ -30,6 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import modes.DecodeImage;
 import modes.DecryptFile;
+import modes.Utilities;
 
 public class PanelReceiver {
 	public static JPanel makePnlRcv(JFrame frame){
@@ -146,6 +147,7 @@ public class PanelReceiver {
 
 	    String decodeString = "Decode picture containing message";
 	    String decryptString = "Decrypt then decode picture containing message using key";
+	    String getSignString = "Decode picture containing a signature";
 	    
         JRadioButton rbtnDecode = new JRadioButton(decodeString);
         rbtnDecode.setActionCommand(decodeString);
@@ -158,9 +160,15 @@ public class PanelReceiver {
         rbtnDecrypt.setActionCommand(decryptString);
         pnlModes.add(rbtnDecrypt);
                 
+        JRadioButton rbtnGetSign= new JRadioButton(getSignString);
+        rbtnGetSign.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+        rbtnGetSign.setActionCommand(getSignString);
+        pnlModes.add(rbtnGetSign);
+        
         ButtonGroup group = new ButtonGroup();
         group.add(rbtnDecode);
         group.add(rbtnDecrypt);
+        group.add(rbtnGetSign);
 	    
 	    JButton btnSubmit = new JButton("Run Program");
 	    btnSubmit.setEnabled(false);
@@ -180,6 +188,7 @@ public class PanelReceiver {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	rbtnDecode.setBackground(Color.decode(GUI.R_RADIO_COLOUR));
             	rbtnDecrypt.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+            	rbtnGetSign.setBackground(Color.decode(GUI.R_MODE_COLOUR));
             }
         });
 	    
@@ -187,6 +196,15 @@ public class PanelReceiver {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	rbtnDecode.setBackground(Color.decode(GUI.R_MODE_COLOUR));
             	rbtnDecrypt.setBackground(Color.decode(GUI.R_RADIO_COLOUR));
+            	rbtnGetSign.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+            }
+        });
+	    
+	    rbtnGetSign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	rbtnDecode.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+            	rbtnDecrypt.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+            	rbtnGetSign.setBackground(Color.decode(GUI.R_RADIO_COLOUR));
             }
         });
 	    
@@ -238,25 +256,38 @@ public class PanelReceiver {
         
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
             	if (rbtnDecode.isSelected()){
         			//this string manipulation is done so that the end result is: "[outputFilePath][outputFileName].[inputFileExtension] 
             		try{
-            			DecodeImage.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()), txtKey.getText());           			
-            			JOptionPane.showMessageDialog(frame,"Image decoding successful! \nPlease view results in output file location: " + txtOutputPath.getText(),"Success!",1);
+            			DecodeImage.main(txtInputPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()), txtKey.getText());           			
+            			JOptionPane.showMessageDialog(frame,"Image decoding successful! \nPlease view output results in: " + outputFilePathComplete,"Success!",1);
             		}catch(Exception e){
-            			JOptionPane.showMessageDialog(frame,"Image decoding unsuccessful. Please try again." + txtOutputPath.getText(),"Failure",0);
+            			JOptionPane.showMessageDialog(frame,"Image decoding unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
             			e.printStackTrace();
             		}            		
             	}else if(rbtnDecrypt.isSelected()){
     				try {
-    					DecodeImage.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()), txtKey.getText());
-						DecryptFile.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), txtKey.getText());
-						JOptionPane.showMessageDialog(frame,"Image decrypting successful! \nPlease view results in output file location: " + txtOutputPath.getText(),"Success!",1);
+    					DecodeImage.main(txtInputPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()), txtKey.getText());
+						DecryptFile.main(txtInputPath.getText(), outputFilePathComplete, txtKey.getText());
+						JOptionPane.showMessageDialog(frame,"Image decrypting successful! \nPlease view output results in: " + outputFilePathComplete,"Success!",1);
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(frame,"Image decrypting unsuccessful. Please try again." + txtOutputPath.getText(),"Failure",0);						
+						JOptionPane.showMessageDialog(frame,"Image decrypting unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);						
 						e.printStackTrace();
 					}
-            	}		    				
+            	}else if(rbtnGetSign.isSelected()){
+            		String s;
+            		try{
+            			s = Utilities.getSignature(txtInputPath.getText());
+            			if (!s.equals("")){
+            				JOptionPane.showMessageDialog(frame,"Success!\nSignature discovered: " + s,"Success!",1);
+            			}else{
+            				JOptionPane.showMessageDialog(frame,"No signature discovered.","No signature found",1);
+            			}
+            		}catch(Exception e){
+        				JOptionPane.showMessageDialog(frame,"Error encountered while getting signature. Please try again.","Failure!",1);
+            		}
+            	}
             }
         });	    
 	    

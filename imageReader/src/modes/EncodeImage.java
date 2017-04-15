@@ -5,9 +5,8 @@ import java.util.Locale;
 
 public class EncodeImage {
 
-	public static void main(String inImage, String inFile, String outFolder, String outFileName, int bitsToEncode){
+	public static void main(String inImage, String inFile, String outFile, int bitsToEncode){
 
-		String outFile = outFolder + "\\" + outFileName;
 		
 		System.out.println(NumberFormat.getNumberInstance(Locale.US)
 				.format(Utilities.getMaxBytes(inImage, bitsToEncode))+

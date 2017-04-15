@@ -19,12 +19,15 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import modes.Utilities;
 
 public class PanelAttacker {
 	public static JPanel makePnlAtk(JFrame frame){
@@ -121,23 +124,24 @@ public class PanelAttacker {
 		pnlModes.setLayout(new GridLayout(4,2));
 	    pnlModes.setBorder(new TitledBorder("Mode Selection"));
 
-	    String statString = "Use statistical analysis";
 	    String shiftString = "Use bit shifts to crack a picture";
+	    String leastSigBitString = "Use least significant bit analysis to crack a picture";
 	    
-	    JRadioButton rbtnStat = new JRadioButton(statString);
-	    rbtnStat.setBackground(Color.decode(GUI.A_RADIO_COLOUR)); 
-        rbtnStat.setActionCommand(statString);
-        rbtnStat.setSelected(true);
-        pnlModes.add(rbtnStat);
-        
-        JRadioButton rbtnShift = new JRadioButton(shiftString);
-        rbtnShift.setBackground(Color.decode(GUI.A_MODE_COLOUR));
+	    
+	    JRadioButton rbtnShift = new JRadioButton(shiftString);
+	    rbtnShift.setBackground(Color.decode(GUI.A_RADIO_COLOUR)); 
         rbtnShift.setActionCommand(shiftString);
+        rbtnShift.setSelected(true);
         pnlModes.add(rbtnShift);
         
+        JRadioButton rbtnLeastSigBit = new JRadioButton(leastSigBitString);
+        rbtnLeastSigBit.setBackground(Color.decode(GUI.A_MODE_COLOUR));
+        rbtnLeastSigBit.setActionCommand(shiftString);
+        pnlModes.add(rbtnLeastSigBit);
+        
         ButtonGroup group = new ButtonGroup();
-        group.add(rbtnStat);
         group.add(rbtnShift);
+        group.add(rbtnLeastSigBit);
 	    
 	    JButton btnSubmit = new JButton("Run Program");
 	    btnSubmit.setEnabled(false);
@@ -152,17 +156,17 @@ public class PanelAttacker {
 	    //start Listeners
 	    //contains each of the listeners for buttons and textboxes
 	    //===============================================================
-	    rbtnStat.addActionListener(new java.awt.event.ActionListener() {
+	    rbtnShift.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	rbtnStat.setBackground(Color.decode(GUI.A_RADIO_COLOUR));
-            	rbtnShift.setBackground(Color.decode(GUI.A_MODE_COLOUR));
+            	rbtnShift.setBackground(Color.decode(GUI.A_RADIO_COLOUR));
+            	rbtnLeastSigBit.setBackground(Color.decode(GUI.A_MODE_COLOUR));
             }
         });
 
-	    rbtnShift.addActionListener(new java.awt.event.ActionListener() {
+	    rbtnLeastSigBit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	rbtnStat.setBackground(Color.decode(GUI.A_MODE_COLOUR));
-            	rbtnShift.setBackground(Color.decode(GUI.A_RADIO_COLOUR));
+            	rbtnShift.setBackground(Color.decode(GUI.A_MODE_COLOUR));
+            	rbtnLeastSigBit.setBackground(Color.decode(GUI.A_RADIO_COLOUR));
             }
         });	    
 	    
@@ -208,10 +212,22 @@ public class PanelAttacker {
         
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	if (rbtnStat.isSelected()){
-            		
-            	}else if(rbtnShift.isSelected()){
-            	
+            	boolean success;
+            	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
+            	if (rbtnShift.isSelected()){
+            		success = Utilities.shiftBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
+            		if (success){
+            			JOptionPane.showMessageDialog(frame,"Image bits shifted successfully! \nPlease view results in output file: " + outputFilePathComplete ,"Success!",1);
+            		}else{
+						JOptionPane.showMessageDialog(frame,"Image bit shift unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete ,"Failure",0);
+            		}
+            	}else if(rbtnLeastSigBit.isSelected()){
+            		success = Utilities.getLeastSigBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
+            		if (success){
+            			JOptionPane.showMessageDialog(frame,"Least significant bit analysis completed successfully! \nPlease view results in output file: " + outputFilePathComplete,"Success!",1);
+            		}else{
+						JOptionPane.showMessageDialog(frame,"Least significant bit analysis was unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
+            		}
             	}	    				
             }
         });	    

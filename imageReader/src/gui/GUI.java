@@ -71,7 +71,6 @@ public class GUI extends JPanel{
 		Container pane = frame.getContentPane();    
 		pane.setLayout(new GridLayout(1,2));
 		
-		
 		TabbedPaneCreation.addTabbedPane(frame, pane);
 		
         frame.pack();

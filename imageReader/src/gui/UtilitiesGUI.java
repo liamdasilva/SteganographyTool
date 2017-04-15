@@ -21,15 +21,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class UtilitiesGUI {
 	
-	public static boolean checkTextFieldsToEnableSubmit(JPanel paramPnl){
+	public static boolean checkTextFieldsToEnableSubmit(JPanel pnlParams){
         
 		boolean allFilled = true;
 		Component c;
 		JTextField ctxt;
-		int componentCount = paramPnl.getComponents().length;
+		int componentCount = pnlParams.getComponents().length;
 		
 		for (int i = 0; i < componentCount - 1; i++){
-			c = paramPnl.getComponent(i);
+			c = pnlParams.getComponent(i);
 			if (c instanceof JTextField){
 				ctxt = (JTextField)c;
 //				System.out.println("i:" + i + " || " + ctxt.getText());
@@ -44,9 +44,9 @@ public class UtilitiesGUI {
 	
 	public static void decideBtnSubmitEnabled(JPanel pnlParams, JButton btnSubmit){
     	if(UtilitiesGUI.checkTextFieldsToEnableSubmit(pnlParams)){
-            btnSubmit.setEnabled(false);
-    	}else{
             btnSubmit.setEnabled(true);
+    	}else{
+            btnSubmit.setEnabled(false);
         }
 	}
 	

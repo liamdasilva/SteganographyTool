@@ -30,6 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import modes.EncodeImage;
 import modes.EncryptFile;
 import modes.SignFile;
+import modes.Utilities;
 
 public class PanelSender {
 	public static JPanel makePnlSend(JFrame frame){
@@ -53,7 +54,7 @@ public class PanelSender {
 	    c.gridx = 0;
 	    c.gridy = 0;
 	    pnlParams.add(btnInputPath, c);
-	 
+	    
 	    JTextField txtInputPath= new JTextField();
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
@@ -69,7 +70,18 @@ public class PanelSender {
 	    c.gridx = 0;
 	    c.gridy = 1;
 	    pnlParams.add(btnMsgPath, c);
-	 
+
+	    JLabel lblMsgPath = new JLabel("Enter signature");
+	    lblMsgPath.setVisible(false);
+	    lblMsgPath.setHorizontalAlignment(0);
+	    lblMsgPath.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+	    c.fill = GridBagConstraints.HORIZONTAL;
+	    c.gridwidth = 1;
+	    c.weightx = 0.1;
+	    c.gridx = 0;
+	    c.gridy = 1;
+	    pnlParams.add(lblMsgPath, c);
+	    
 	    JTextField txtMsgPath= new JTextField();
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
@@ -175,15 +187,15 @@ public class PanelSender {
         rbtnEncrypt.setActionCommand(encryptString);
         pnlModes.add(rbtnEncrypt);
                 
-        JRadioButton rbtnsign = new JRadioButton(signString);
-        rbtnsign.setBackground(Color.decode(GUI.S_MODE_COLOUR));
-        rbtnsign.setActionCommand(signString);
-        pnlModes.add(rbtnsign);
+        JRadioButton rbtnSign = new JRadioButton(signString);
+        rbtnSign.setBackground(Color.decode(GUI.S_MODE_COLOUR));
+        rbtnSign.setActionCommand(signString);
+        pnlModes.add(rbtnSign);
 	    
         ButtonGroup group = new ButtonGroup();
         group.add(rbtnEncode);
         group.add(rbtnEncrypt);
-        group.add(rbtnsign);
+        group.add(rbtnSign);
 	    
 	    JButton btnSubmit = new JButton("Run Program");
 	    btnSubmit.setEnabled(false);
@@ -200,25 +212,34 @@ public class PanelSender {
 	    //===============================================================
 	    rbtnEncode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	btnMsgPath.setVisible(true);
+            	lblMsgPath.setVisible(false);
+            	
             	rbtnEncode.setBackground(Color.decode(GUI.S_RADIO_COLOUR));
             	rbtnEncrypt.setBackground(Color.decode(GUI.S_MODE_COLOUR));
-            	rbtnsign.setBackground(Color.decode(GUI.S_MODE_COLOUR));
+            	rbtnSign.setBackground(Color.decode(GUI.S_MODE_COLOUR));
             }
         });
 	    
 	    rbtnEncrypt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	btnMsgPath.setVisible(true);
+            	lblMsgPath.setVisible(false);
+            	
             	rbtnEncode.setBackground(Color.decode(GUI.S_MODE_COLOUR));
             	rbtnEncrypt.setBackground(Color.decode(GUI.S_RADIO_COLOUR));
-            	rbtnsign.setBackground(Color.decode(GUI.S_MODE_COLOUR));
+            	rbtnSign.setBackground(Color.decode(GUI.S_MODE_COLOUR));
             }
         });
 	    	    
-	    rbtnsign.addActionListener(new java.awt.event.ActionListener() {
+	    rbtnSign.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	btnMsgPath.setVisible(false);
+            	lblMsgPath.setVisible(true);
+            	
             	rbtnEncode.setBackground(Color.decode(GUI.S_MODE_COLOUR));
             	rbtnEncrypt.setBackground(Color.decode(GUI.S_MODE_COLOUR));
-            	rbtnsign.setBackground(Color.decode(GUI.S_RADIO_COLOUR));
+            	rbtnSign.setBackground(Color.decode(GUI.S_RADIO_COLOUR));
             }
         });
 	    	    
@@ -250,7 +271,14 @@ public class PanelSender {
 	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
 	        }
 	    });
-        
+
+        txtMsgPath.addKeyListener(new KeyAdapter() {
+	        public void keyReleased(KeyEvent e) { //watch for key strokes
+		        UtilitiesGUI.refreshPicture(txtInputPath);
+	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
+	        }
+	    });
+
         txtOutputPath.addKeyListener(new KeyAdapter() {
 	        public void keyReleased(KeyEvent e) { //watch for key strokes
 	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
@@ -277,35 +305,34 @@ public class PanelSender {
                 
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	boolean success;
+            	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
             	if (rbtnEncode.isSelected()){
             		try{
-            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()));           			
-            			JOptionPane.showMessageDialog(frame,"Image encoding successful! \nPlease view results in output file location: " + txtOutputPath.getText(),"Success!",1);
+            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()));           			
+            			JOptionPane.showMessageDialog(frame,"Image encoding successful! \nPlease view results in output file: " + outputFilePathComplete ,"Success!",1);
             		}catch(Exception e){
-            			JOptionPane.showMessageDialog(frame,"Image encoding unsuccessful. Please try again." + txtOutputPath.getText(),"Failure",0);
+            			JOptionPane.showMessageDialog(frame,"Image encoding unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
             			e.printStackTrace();
             		}
             	}else if(rbtnEncrypt.isSelected()){
-        			//this string manipulation is done so that the end result is: "[outputFilePath][outputFileName].[inputFileExtension] 
-//            		String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
-//            		String inputFileNameOnly = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf("\\"), txtMsgPath.getText().lastIndexOf("."));
-//        			String inputFileExt = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf(".")+1);
-//        			String decodedOutputFile = outputFileNoExt + "." + inputFileExt;
-//        			String encryptedFile = txtOutputPath.getText() + inputFileNameOnly + " - AES-encrypted." + inputFileExt;
-//        			String decryptedFile = outputFileNoExt + " - AES-decrypted." + inputFileExt;
-        			
     				try {
-    					EncryptFile.main(txtInputPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), txtKey.getText());
-            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()));
-    					JOptionPane.showMessageDialog(frame,"Image encrypting successful! \nPlease view results in output file location: " + txtOutputPath.getText(),"Success!",1);
+    					EncryptFile.main(txtInputPath.getText(), outputFilePathComplete, txtKey.getText());
+            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()));
+    					JOptionPane.showMessageDialog(frame,"Image encrypting successful! \nPlease view results in output file: " + outputFilePathComplete,"Success!",1);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(frame,"Image encrypting unsuccessful. Please try again." + txtOutputPath.getText(),"Failure",0);
+						JOptionPane.showMessageDialog(frame,"Image encrypting unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
 						e.printStackTrace();
 					}
     				    				
-            	}else if(rbtnsign.isSelected()){
-            		SignFile.main(txtInputPath.getText(), txtMsgPath.getText(), txtOutputPath.getText(), txtOutputFile.getText(), Integer.parseInt(txtBits.getText()), txtKey.getText());
+            	}else if(rbtnSign.isSelected()){
+            		success = Utilities.signImage(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete);
+            		if (success){
+        				JOptionPane.showMessageDialog(frame,"Success!\nSignature encoded into image.\nPlease view output file: " + outputFilePathComplete,"Success!",1);
+        			}else{
+        				JOptionPane.showMessageDialog(frame,"Signature encoding unsuccessful. Please try again.","Failure",0);
+        			}
             	}
             }
         });	    

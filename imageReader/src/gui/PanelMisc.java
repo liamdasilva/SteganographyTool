@@ -264,7 +264,7 @@ public class PanelMisc {
             		}catch(Exception e){
             			JOptionPane.showMessageDialog(
             					frame, 
-            					"Image encoding unsuccessful. Please try again." + txtOutputPath.getText(), 
+            					"Image encoding unsuccessful. Please try again. \nOutput can be found here: " + txtOutputPath.getText(), 
             					"Failure", 
             					0);
             			e.printStackTrace();

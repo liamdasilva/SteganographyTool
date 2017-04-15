@@ -20,7 +20,7 @@ public class DecryptFile {
      * Use key from encryption to decrypt the file 
      */
 //    public static void main(String inputFilePath, String outputFileFolder, String int bitsToDecode, String decryptedFile, SecretKey secKey) throws Exception {
-    public static void main(String inputFilePath, String outputFileFolder, String decryptedFile, String keyString) throws Exception { 
+    public static void main(String inputFilePath, String decryptedFile, String keyString) throws Exception { 
         byte[] hashedKey = hashKey(keyString);
     	SecretKey secKey = new SecretKeySpec(hashedKey, 0, hashedKey.length, "AES");
     	
