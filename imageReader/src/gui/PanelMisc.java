@@ -143,8 +143,8 @@ public class PanelMisc {
 		pnlModes.setLayout(new GridLayout(4,2));
 	    pnlModes.setBorder(new TitledBorder("Mode Selection"));
 
-	    String encodeStringM = "Test all bit encodings [1-8] on a picture";
-	    String decodeStringM = "Decode each of the bit encodings above \n(Please select \"...1.PNG\" of the group as Input File)";
+	    String encodeStringM = "Test all bit encodings (1-8) on a picture";
+	    String decodeStringM = "Decode each encoded picture in a group (Select \"...1.PNG\" as Input)";
 	    
         JRadioButton rbtnEncodeM= new JRadioButton(encodeStringM);
         rbtnEncodeM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
