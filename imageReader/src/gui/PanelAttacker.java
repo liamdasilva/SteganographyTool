@@ -68,7 +68,7 @@ public class PanelAttacker {
 	    c.gridy = 1;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + "\\Desktop");
+	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + File.separator+"Desktop");
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
