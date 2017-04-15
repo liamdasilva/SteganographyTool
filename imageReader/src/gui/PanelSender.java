@@ -307,6 +307,8 @@ public class PanelSender {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	boolean success;
             	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
+            	String msgFileExt = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf(".")+1);
+            	String encryptedMsgFile = txtOutputPath.getText() + "\\" + "(intermediate step) - sender - encrypt input." + msgFileExt;
             	if (rbtnEncode.isSelected()){
             		try{
             			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()));           			
@@ -317,8 +319,8 @@ public class PanelSender {
             		}
             	}else if(rbtnEncrypt.isSelected()){
     				try {
-    					EncryptFile.main(txtInputPath.getText(), outputFilePathComplete, txtKey.getText());
-            			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()));
+    					EncryptFile.main(txtMsgPath.getText(), encryptedMsgFile, txtKey.getText());
+            			EncodeImage.main(txtInputPath.getText(), encryptedMsgFile, outputFilePathComplete, Integer.parseInt(txtBits.getText()));
     					JOptionPane.showMessageDialog(frame,"Image encrypting successful! \nPlease view results in output file: " + outputFilePathComplete,"Success!",1);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
