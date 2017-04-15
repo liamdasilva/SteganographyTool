@@ -27,6 +27,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import modes.DecodeImage;
+import modes.EncodeImage;
 import modes.readImage;
 
 public class PanelMisc {
@@ -141,23 +143,24 @@ public class PanelMisc {
 		pnlModes.setLayout(new GridLayout(4,2));
 	    pnlModes.setBorder(new TitledBorder("Mode Selection"));
 
-	    String encodeString = "hmm. what else";
-	    String allBitsString = "Test all possible bit encodings on a picture";
+	    String encodeStringM = "Test all bit encodings [1-8] on a picture";
+	    String decodeStringM = "Decode each of the bit encodings above \n(Please select \"...1.PNG\" of the group as Input File)";
 	    
-	    JRadioButton rbtnEncode = new JRadioButton(encodeString);
-	    rbtnEncode.setBackground(Color.decode(GUI.M_RADIO_COLOUR)); 
-        rbtnEncode.setActionCommand(encodeString);
-        rbtnEncode.setSelected(true);
-        pnlModes.add(rbtnEncode);
+        JRadioButton rbtnEncodeM= new JRadioButton(encodeStringM);
+        rbtnEncodeM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
+        rbtnEncodeM.setSelected(true);
+        rbtnEncodeM.setActionCommand(encodeStringM);
+        pnlModes.add(rbtnEncodeM);
         
-        JRadioButton rbtnAllBits= new JRadioButton(allBitsString);
-        rbtnAllBits.setBackground(Color.decode(GUI.M_MODE_COLOUR));
-        rbtnAllBits.setActionCommand(allBitsString);
-        pnlModes.add(rbtnAllBits);
+	    JRadioButton rbtnDecodeM = new JRadioButton(decodeStringM);
+	    rbtnDecodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR)); 
+        rbtnDecodeM.setActionCommand(decodeStringM);
+        pnlModes.add(rbtnDecodeM);
+
 	    
         ButtonGroup group = new ButtonGroup();
-        group.add(rbtnEncode);
-        group.add(rbtnAllBits);
+        group.add(rbtnEncodeM);
+        group.add(rbtnDecodeM);
 	    
 	    JButton btnSubmit = new JButton("Run Program");
 	    btnSubmit.setEnabled(false);
@@ -172,21 +175,32 @@ public class PanelMisc {
 	    //start Listeners
 	    //contains each of the listeners for buttons and textboxes
 	    //===============================================================
-	    rbtnEncode.addActionListener(new java.awt.event.ActionListener() {
+	    rbtnEncodeM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	rbtnEncode.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
-            	rbtnAllBits.setBackground(Color.decode(GUI.M_MODE_COLOUR));
+            	rbtnEncodeM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
+            	rbtnDecodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
+
+            	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
+            	txtOutputFile.setText(outputFileNoExt + ".PNG");
+            	
+            	btnMsgPath.setVisible(true);
+            	txtMsgPath.setVisible(true);
+            }
+        });
+	    
+	    rbtnDecodeM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	rbtnEncodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
+            	rbtnDecodeM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
+            	
+            	btnMsgPath.setVisible(false);
+            	txtMsgPath.setVisible(false);
+            	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
+            	txtOutputFile.setText(outputFileNoExt + ".txt");
+            	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
             }
         });
 
-	    
-	    rbtnAllBits.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	rbtnEncode.setBackground(Color.decode(GUI.M_MODE_COLOUR));
-            	rbtnAllBits.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
-            }
-        });
-	    
 	    btnInputPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	UtilitiesGUI.chooseImage(frame, txtInputPath);
@@ -242,35 +256,32 @@ public class PanelMisc {
         
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	if (rbtnEncode.isSelected()){
+            	String outputFileExt = txtOutputFile.getText().substring(txtOutputFile.getText().lastIndexOf(".")+1);
+            	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
+    			String outputFileNumberless = txtOutputPath.getText() + "\\" + outputFileNoExt; 
+    			
+            	if (rbtnEncodeM.isSelected()){
             		try{
-            			//this string manipulation is done so that the end result is: "[outputFilePath][outputFileName].[inputFileExtension] 
-            			String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
-            			String inputFileExt = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf(".")+1);
-            			String decodedOutputFile = outputFileNoExt + "." + inputFileExt;
-
-            			//call function to encode + decode image
-            			readImage.main(
-            					txtInputPath.getText(), 
-            					txtMsgPath.getText(), 
-            					txtOutputPath.getText() + "\\" + txtOutputFile.getText(), 
-            					txtOutputPath.getText() + "\\" + decodedOutputFile );
-            			
-            			JOptionPane.showMessageDialog(
-            					frame, 
-            					"Image encoding successful! \nPlease view results in output file location: " + txtOutputPath.getText(), 
-            					"Success!", 
-            					1);
+            			for (int i = 1; i <= 8; i++){
+            				EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), outputFileNumberless + i + ".PNG", i);
+            			}	            			
+	        			JOptionPane.showMessageDialog(frame,"Image encodings successful! \nPlease view results in output folder: " + txtOutputPath.getText(),"Success!",1);
             		}catch(Exception e){
-            			JOptionPane.showMessageDialog(
-            					frame, 
-            					"Image encoding unsuccessful. Please try again. \nOutput can be found here: " + txtOutputPath.getText(), 
-            					"Failure", 
-            					0);
+            			JOptionPane.showMessageDialog(frame,"Image encodings unsuccessful. Please try again. \nOutput can be found here: " + txtOutputPath.getText(),"Failure",0);
             			e.printStackTrace();
             		}
-            	}else if(rbtnAllBits.isSelected()){
-    				    				
+            	}else if(rbtnDecodeM.isSelected()){
+            		try{
+            			String inputFileNumberless = txtInputPath.getText().substring(0, txtInputPath.getText().lastIndexOf("1"));
+            			String inputFileExt = txtInputPath.getText().substring(txtInputPath.getText().lastIndexOf(".")+1);
+            			for (int i = 1; i <= 8; i++){
+            				DecodeImage.main(inputFileNumberless + i + "." + inputFileExt, outputFileNumberless + i + " - decoded" + "." + outputFileExt, i);
+            			}	            			
+	        			JOptionPane.showMessageDialog(frame,"Image decodings successful! \nPlease view results in output folder: " + txtOutputPath.getText(),"Success!",1);
+            		}catch(Exception e){
+            			JOptionPane.showMessageDialog(frame,"Image decodings unsuccessful. Please try again. \nOutput can be found here: " + txtOutputPath.getText(),"Failure",0);
+            			e.printStackTrace();
+            		}    				
             	}
             }
         });	    

@@ -263,7 +263,7 @@ public class PanelReceiver {
             	if (rbtnDecode.isSelected()){
         			//this string manipulation is done so that the end result is: "[outputFilePath][outputFileName].[inputFileExtension] 
             		try{
-            			DecodeImage.main(txtInputPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()), txtKey.getText());           			
+            			DecodeImage.main(txtInputPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()));           			
             			JOptionPane.showMessageDialog(frame,"Image decoding successful! \nPlease view output results in: " + outputFilePathComplete,"Success!",1);
             		}catch(Exception e){
             			JOptionPane.showMessageDialog(frame,"Image decoding unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
@@ -271,7 +271,7 @@ public class PanelReceiver {
             		}            		
             	}else if(rbtnDecrypt.isSelected()){
     				try {
-    					DecodeImage.main(txtInputPath.getText(), intermedFileExt, Integer.parseInt(txtBits.getText()), txtKey.getText());
+    					DecodeImage.main(txtInputPath.getText(), intermedFileExt, Integer.parseInt(txtBits.getText()));
 						DecryptFile.main(intermedFileExt, outputFilePathComplete, txtKey.getText());
 						JOptionPane.showMessageDialog(frame,"Image decrypting successful! \nPlease view output results in: " + outputFilePathComplete,"Success!",1);
 					} catch (Exception e) {

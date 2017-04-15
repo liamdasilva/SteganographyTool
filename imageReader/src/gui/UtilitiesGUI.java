@@ -33,7 +33,7 @@ public class UtilitiesGUI {
 			if (c instanceof JTextField){
 				ctxt = (JTextField)c;
 //				System.out.println("i:" + i + " || " + ctxt.getText());
-				if(ctxt.getText().isEmpty()){
+				if(ctxt.getText().isEmpty() && ctxt.isVisible()){
 					allFilled = false;
 				}
 			}
