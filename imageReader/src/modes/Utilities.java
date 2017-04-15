@@ -107,7 +107,7 @@ public class Utilities {
 	 */
 	public static boolean signImage(String imageName, String signature, String outFile){
 		int bits = 1;
-		if(signature.length()>50||signature.length()<=0){
+		if(signature.length()>100||signature.length()<=0){
 			return false;
 		}
 		BufferedImage img = getBufferedImageFromFile(imageName);
@@ -120,6 +120,12 @@ public class Utilities {
 			for (int i=0;i<img.getHeight();i++){
 				for (int j=0;j<img.getWidth();j++){
 					String nextBits = binString.substring(counter, counter+1);
+					imgTracker.insertBits(nextBits);
+					counter=(counter+1)%binString.length();
+					nextBits = binString.substring(counter, counter+1);
+					imgTracker.insertBits(nextBits);
+					counter=(counter+1)%binString.length();
+					nextBits = binString.substring(counter, counter+1);
 					imgTracker.insertBits(nextBits);
 					counter=(counter+1)%binString.length();
 				}
@@ -271,7 +277,18 @@ public class Utilities {
 					r = r&0b00000011;
 					g = g&0b00000011;
 					b = b&0b00000011;
-					Color newc = new Color(r,g,b,curColor.getAlpha());
+					int average = (r+g+b)/3;
+					int x = 0;
+					if (average==0){
+						x=0;
+					}else if(average==1){
+						x=85;
+					}else if(average==2){
+						x=170;
+					}else if(average==3){
+						x=255;
+					}
+					Color newc = new Color(x,x,x,curColor.getAlpha());
 					img.setRGB(j, i, newc.getRGB());
 				}
 			}

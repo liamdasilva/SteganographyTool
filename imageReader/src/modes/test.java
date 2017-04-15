@@ -51,20 +51,20 @@ public class test {
 //			e.printStackTrace();
 //		}
 		String imageName = "/Users/liamdasilva/Desktop/sunset/sunset.png";
-		String fileName = "/Users/liamdasilva/Desktop/HelloWorld.txt";
+		String fileName = "/Users/liamdasilva/Desktop/old forex data/USDJPY60.csv";
 		String outImage = "/Users/liamdasilva/Desktop/sunset/testing.png";
 		String outImageShiftPath = "/Users/liamdasilva/Desktop/sunset/shift/";
 		String outFile = "/Users/liamdasilva/Desktop/sunset/output.txt";
 		
 		int bitsToEncode = 1;
 		
-//		System.out.println(NumberFormat.getNumberInstance(Locale.US)
-//				.format(Utilities.getMaxBytes(imageName, bitsToEncode))+
-//				" bytes can fit in this file using "+ bitsToEncode+" bit encoding.");
-//		int result = Utilities.insertFileIntoImage(imageName,fileName,bitsToEncode,outImage);
-//		if (!(result==-1)){
-//			System.out.println(NumberFormat.getNumberInstance(Locale.US).format(result)+" bytes successfully encoded.");
-//		}
+		System.out.println(NumberFormat.getNumberInstance(Locale.US)
+				.format(Utilities.getMaxBytes(imageName, bitsToEncode))+
+				" bytes can fit in this file using "+ bitsToEncode+" bit encoding.");
+		int result = Utilities.insertFileIntoImage(imageName,fileName,bitsToEncode,outImage);
+		if (!(result==-1)){
+			System.out.println(NumberFormat.getNumberInstance(Locale.US).format(result)+" bytes successfully encoded.");
+		}
 //		int result2 = Utilities.readFileFromImage(outImage, bitsToEncode, outFile);
 //		if (!(result2==-1)){
 //			System.out.println(NumberFormat.getNumberInstance(Locale.US).format(result2)+" bytes successfully read.");
@@ -79,7 +79,8 @@ public class test {
 //			Utilities.shiftBits(outImageShiftPath+(i-1)+"bitsshifted.png", 1, outImageShiftPath+i+"bitsshifted.png");
 //		}
 		
-		Utilities.getLeastSigBits(imageName, 1, outImage);
+//		Utilities.getLeastSigBits(imageName, 1, "/Users/liamdasilva/Desktop/sunset/leastsigorig.png");
+		Utilities.getLeastSigBits(outImage, 1, "/Users/liamdasilva/Desktop/sunset/leastsigsigned.png");
 	}
 
 }
