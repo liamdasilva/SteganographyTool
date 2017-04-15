@@ -187,7 +187,7 @@ public class TabbedPaneCreation {
 			curOutputPath = (JTextField)d;
 			curOutputFile = (JTextField)e;
 	
-			String sndOutputFileCompletePath = sndOutputPath.getText() + "\\" + sndOutputFile.getText();
+			String sndOutputFileCompletePath = sndOutputPath.getText() + File.separator + sndOutputFile.getText();
 			String sndMsgExt = sndMsgPath.getText().substring(sndMsgPath.getText().lastIndexOf(".")+1);
 			if (sndMsgPath.getText().lastIndexOf("\\") == -1){ //signature must have been used
 				sndMsgExt = "txt";

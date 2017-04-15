@@ -256,9 +256,9 @@ public class PanelReceiver {
         
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
+            	String outputFilePathComplete = txtOutputPath.getText() + File.separator + txtOutputFile.getText();
             	String outputFileExt = txtOutputFile.getText().substring(txtOutputFile.getText().lastIndexOf(".")+1);
-            	String intermedFileExt = txtOutputPath.getText() + "\\" + "(intermediate step) - receiver - decode input." + outputFileExt;
+            	String intermedFileExt = txtOutputPath.getText() + File.separator + "(intermediate step) - receiver - decode input." + outputFileExt;
             	
             	if (rbtnDecode.isSelected()){
         			//this string manipulation is done so that the end result is: "[outputFilePath][outputFileName].[inputFileExtension] 

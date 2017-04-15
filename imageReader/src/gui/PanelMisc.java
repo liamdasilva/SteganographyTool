@@ -258,7 +258,7 @@ public class PanelMisc {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	String outputFileExt = txtOutputFile.getText().substring(txtOutputFile.getText().lastIndexOf(".")+1);
             	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
-    			String outputFileNumberless = txtOutputPath.getText() + "\\" + outputFileNoExt; 
+    			String outputFileNumberless = txtOutputPath.getText() + File.separator + outputFileNoExt; 
     			
             	if (rbtnEncodeM.isSelected()){
             		try{

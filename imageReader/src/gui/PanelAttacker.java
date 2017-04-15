@@ -86,7 +86,7 @@ public class PanelAttacker {
 	    c.gridy = 2;
 	    pnlParams.add(lblOutputFile, c);
 	 
-	    JTextField txtOutputFile = new JTextField("output - attacker.txt");
+	    JTextField txtOutputFile = new JTextField("output - attacker.png");
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -94,7 +94,7 @@ public class PanelAttacker {
 	    c.gridy = 2;
 	    pnlParams.add(txtOutputFile, c);
 
-	    JLabel lblBits = new JLabel("Bits to Shift");
+	    JLabel lblBits = new JLabel("Bits to Shift/Use");
 	    lblBits.setHorizontalAlignment(0);
 	    lblBits.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -213,7 +213,7 @@ public class PanelAttacker {
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	boolean success;
-            	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
+            	String outputFilePathComplete = txtOutputPath.getText() + File.separator + txtOutputFile.getText();
             	if (rbtnShift.isSelected()){
             		success = Utilities.shiftBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
             		if (success){

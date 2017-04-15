@@ -98,7 +98,7 @@ public class PanelSender {
 	    c.gridy = 2;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + "\\Desktop");
+	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + File.separator+"Desktop"+File.separator+"Steganography");
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -306,9 +306,9 @@ public class PanelSender {
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	boolean success;
-            	String outputFilePathComplete = txtOutputPath.getText() + "\\" + txtOutputFile.getText();
+            	String outputFilePathComplete = txtOutputPath.getText() +File.separator + txtOutputFile.getText();
             	String msgFileExt = txtMsgPath.getText().substring(txtMsgPath.getText().lastIndexOf(".")+1);
-            	String encryptedMsgFile = txtOutputPath.getText() + "\\" + "(intermediate step) - sender - encrypt input." + msgFileExt;
+            	String encryptedMsgFile = txtOutputPath.getText() + File.separator + "(intermediate step) - sender - encrypt input." + msgFileExt;
             	if (rbtnEncode.isSelected()){
             		try{
             			EncodeImage.main(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete, Integer.parseInt(txtBits.getText()));           			
