@@ -87,7 +87,7 @@ public class PanelMisc {
 	    c.gridy = 2;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + "\\Desktop");
+	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + File.separator+"Desktop"+File.separator+"Steganography");
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
