@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -53,7 +54,9 @@ public class UtilitiesGUI {
 	public static void refreshPicture(JTextField txtInputPath){
 		try {
 			BufferedImage img = ImageIO.read(new File(txtInputPath.getText()));
-			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth()*GUI.PIC_WIDTH_SCALE+0.5), (int)(GUI.pnlPic.getHeight()*GUI.PIC_HEIGHT_SCALE+0.5), Image.SCALE_DEFAULT);
+			float whratio = (float) (img.getWidth()) / (float)(img.getHeight());
+			float hwratio = (float) (img.getHeight()) / (float)(img.getWidth());
+			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth() * whratio), (int)(GUI.pnlPic.getHeight() * hwratio), Image.SCALE_SMOOTH);
 			ImageIcon imgIcon = new ImageIcon(scaledImg);
 			GUI.inputPic.setIcon(imgIcon);
 			GUI.lblNotFound.setText("");
@@ -97,6 +100,46 @@ public class UtilitiesGUI {
     	    File selection = fileChooser.getSelectedFile();
     	    txtInputPath.setText(selection.getPath());
     	}
+	}
+	
+	public static void createOutputFolder(){
+		File folder = null;
+		String[] options = new String[2];
+	    options[0] = new String("OK");
+	    options[1] = new String("Select my own output folder...");
+	    
+	    int n = JOptionPane.showOptionDialog(
+	            null,
+	            "This program would like to create a new folder in this location to store output files:\n " + System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Steganography",
+	            "Create Output Storage Folder",
+	            0,
+	            JOptionPane.QUESTION_MESSAGE,
+	            null,
+	            options,
+	            null);
+
+        if(n==0){
+        	folder = new File(System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Steganography");
+        	folder.mkdir();
+            JOptionPane.showMessageDialog(null, "Folder successfully created at: " + GUI.outputStorageLocation);	
+        }else if(n == 1){ //chooses to pick their own folder
+
+    		JFileChooser fileChooser = new JFileChooser();
+        	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+File.separator+"Desktop"));
+        	fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        	int result = fileChooser.showOpenDialog(null);
+        	File selection = null;
+        	if (result == JFileChooser.APPROVE_OPTION) {
+        	    selection = fileChooser.getSelectedFile();
+        	}
+        	GUI.outputStorageLocation = selection.getPath() + File.separator + "Steganography";
+        	folder = new File(GUI.outputStorageLocation);
+        	folder.mkdir();
+            JOptionPane.showMessageDialog(null, "Folder successfully created at: " + GUI.outputStorageLocation);
+        }else if(n == JOptionPane.CLOSED_OPTION){
+        	JOptionPane.showMessageDialog(null, "Exiting program.");
+        	System.exit(1);
+        }
 	}
 	
 }

@@ -10,12 +10,14 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -50,6 +52,7 @@ public class TabbedPaneCreation {
 	    GUI.pnlPic.setBorder(new TitledBorder("Picture Preview"));
 	    GUI.pnlPic.add(GUI.lblNotFound);
 	    BufferedImage img;
+	    
 	    GUI.pnlPic.add(GUI.inputPic);
 	    
 	    pane.add(GUI.pnlPic);
@@ -161,7 +164,9 @@ public class TabbedPaneCreation {
 	public static void picChangeWhenTab(JTextField txtInput){
 	    try {
 			BufferedImage img = ImageIO.read(new File(txtInput.getText()));
-			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth()*GUI.PIC_WIDTH_SCALE+0.5), (int)(GUI.pnlPic.getHeight()*GUI.PIC_HEIGHT_SCALE+0.5), Image.SCALE_DEFAULT);
+			float whratio = (float) (img.getWidth()) / (float)(img.getHeight());
+			float hwratio = (float) (img.getHeight()) / (float)(img.getWidth());
+			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth() * whratio), (int)(GUI.pnlPic.getHeight() * hwratio), Image.SCALE_SMOOTH);
 			ImageIcon imgIcon = new ImageIcon(scaledImg);
 			GUI.inputPic.setIcon(imgIcon);
 			GUI.lblNotFound.setText("");

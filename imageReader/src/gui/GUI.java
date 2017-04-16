@@ -59,14 +59,23 @@ public class GUI extends JPanel{
 	public static JPanel pnlPic = new JPanel();
 	public static JLabel lblNotFound = new JLabel("No preview image available");
 	public static JLabel inputPic = new JLabel();
+	
+	public static String outputStorageLocation; //location where output files are stored 
+	
     
 	public static void main(String[] args) throws IOException{
+	    outputStorageLocation = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Steganography"; 
+	    File folder= new File(outputStorageLocation);
+	    if (! folder.exists()){
+	    	UtilitiesGUI.createOutputFolder();
+	    }
+	    
 		createGUI();
 	}	    
 
 	public static void createGUI() {
 		
-		JFrame frame = new JFrame("Steganografun - Alice-o-Vision");
+	    JFrame frame = new JFrame("Steganografun - Alice-o-Vision");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container pane = frame.getContentPane();    
 		pane.setLayout(new GridLayout(1,2));
@@ -78,7 +87,8 @@ public class GUI extends JPanel{
 	    frame.setSize(APP_WIDTH, APP_HEIGHT);
 
 	    frame.setVisible(true);
-	}
-
+	    
+        
+    }
 		
 }

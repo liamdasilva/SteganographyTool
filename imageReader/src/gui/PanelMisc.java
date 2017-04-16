@@ -88,7 +88,7 @@ public class PanelMisc {
 	    c.gridy = 2;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + File.separator+"Desktop"+File.separator+"Steganography");
+	    JTextField txtOutputPath = new JTextField(GUI.outputStorageLocation);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -306,9 +306,15 @@ public class PanelMisc {
             			e.printStackTrace();
             		}    				
             	}else if(rbtnDoShiftM.isSelected()){
-            		Utilities.shiftBits(txtInputPath.getText(), 1, outputFileNumberless + 1 + ".PNG");
-            		for (int i=2;i<8;i++){
-            			Utilities.shiftBits(outputFileNumberless + (i-1) + ".PNG", 1, outputFileNumberless + i + ".PNG");
+            		try{
+            			Utilities.shiftBits(txtInputPath.getText(), 1, outputFileNumberless + 1 + ".PNG");
+                		for (int i=2;i<8;i++){
+                			Utilities.shiftBits(outputFileNumberless + (i-1) + ".PNG", 1, outputFileNumberless + i + ".PNG");
+                		}
+                		JOptionPane.showMessageDialog(frame,"Shifts successful! \nPlease view results in output folder: " + txtOutputPath.getText(),"Success!",1);
+            		}catch(Exception e){
+            			JOptionPane.showMessageDialog(frame,"Shifts successful! \nPlease view results in output folder: " + txtOutputPath.getText(),"Success!",1);
+            			e.printStackTrace();
             		}
             	}
             }
