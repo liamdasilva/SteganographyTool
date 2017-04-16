@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -123,11 +124,12 @@ public class UtilitiesGUI {
         	folder.mkdir();
             JOptionPane.showMessageDialog(null, "Folder successfully created at: " + GUI.outputStorageLocation);	
         }else if(n == 1){ //chooses to pick their own folder
-
-    		JFileChooser fileChooser = new JFileChooser();
+        	
+        	JFrame tempFrame = new JFrame();
+        	JFileChooser fileChooser = new JFileChooser();
         	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+File.separator+"Desktop"));
         	fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        	int result = fileChooser.showOpenDialog(null);
+        	int result = fileChooser.showOpenDialog(tempFrame);
         	File selection = null;
         	if (result == JFileChooser.APPROVE_OPTION) {
         	    selection = fileChooser.getSelectedFile();
@@ -136,6 +138,7 @@ public class UtilitiesGUI {
         	folder = new File(GUI.outputStorageLocation);
         	folder.mkdir();
             JOptionPane.showMessageDialog(null, "Folder successfully created at: " + GUI.outputStorageLocation);
+            tempFrame.dispatchEvent(new WindowEvent(tempFrame, WindowEvent.WINDOW_CLOSING));
         }else if(n == JOptionPane.CLOSED_OPTION){
         	JOptionPane.showMessageDialog(null, "Exiting program.");
         	System.exit(1);
