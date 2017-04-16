@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -153,7 +154,7 @@ public class PanelSender {
 	    c.gridy = 5;
 	    pnlParams.add(lblKey, c);
 	 
-	    JTextField txtKey= new JTextField("ThisIsAKey");
+	    JPasswordField txtKey= new JPasswordField("ThisIsAKey");
 	    txtKey.setVisible(false);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
