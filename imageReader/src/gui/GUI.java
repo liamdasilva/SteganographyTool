@@ -64,6 +64,13 @@ public class GUI extends JPanel{
 	
     
 	public static void main(String[] args) throws IOException{
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    outputStorageLocation = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Steganography"; 
 	    File folder= new File(outputStorageLocation);
 	    if (! folder.exists()){

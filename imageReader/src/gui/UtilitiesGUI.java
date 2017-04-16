@@ -17,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -125,11 +127,13 @@ public class UtilitiesGUI {
             JOptionPane.showMessageDialog(null, "Folder successfully created at: " + GUI.outputStorageLocation);	
         }else if(n == 1){ //chooses to pick their own folder
         	
-        	JFrame tempFrame = new JFrame();
+
+
+
         	JFileChooser fileChooser = new JFileChooser();
         	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+File.separator+"Desktop"));
         	fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        	int result = fileChooser.showOpenDialog(tempFrame);
+        	int result = fileChooser.showOpenDialog(null);
         	File selection = null;
         	if (result == JFileChooser.APPROVE_OPTION) {
         	    selection = fileChooser.getSelectedFile();
@@ -138,7 +142,6 @@ public class UtilitiesGUI {
         	folder = new File(GUI.outputStorageLocation);
         	folder.mkdir();
             JOptionPane.showMessageDialog(null, "Folder successfully created at: " + GUI.outputStorageLocation);
-            tempFrame.dispatchEvent(new WindowEvent(tempFrame, WindowEvent.WINDOW_CLOSING));
         }else if(n == JOptionPane.CLOSED_OPTION){
         	JOptionPane.showMessageDialog(null, "Exiting program.");
         	System.exit(1);
