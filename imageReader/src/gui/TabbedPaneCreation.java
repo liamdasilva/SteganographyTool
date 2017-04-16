@@ -191,6 +191,8 @@ public class TabbedPaneCreation {
 			String sndMsgExt = sndMsgPath.getText().substring(sndMsgPath.getText().lastIndexOf(".")+1);
 			if (sndMsgPath.getText().lastIndexOf("\\") == -1){ //signature must have been used
 				sndMsgExt = "txt";
+			}else{
+				sndMsgExt = "png";
 			}
 			
 			String curOutputFileNoExt = null;

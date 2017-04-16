@@ -116,6 +116,7 @@ public class PanelReceiver {
 	    pnlParams.add(txtBits, c);
 	    
 	    JLabel lblKey= new JLabel("Secret Key");
+	    lblKey.setVisible(false);
 	    lblKey.setHorizontalAlignment(0);
 	    lblKey.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -126,6 +127,7 @@ public class PanelReceiver {
 	    pnlParams.add(lblKey, c);
 	 
 	    JTextField txtKey= new JTextField("ThisIsAKey");
+		txtKey.setVisible(false);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -189,6 +191,10 @@ public class PanelReceiver {
             	rbtnDecode.setBackground(Color.decode(GUI.R_RADIO_COLOUR));
             	rbtnDecrypt.setBackground(Color.decode(GUI.R_MODE_COLOUR));
             	rbtnGetSign.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+            	lblBits.setVisible(true);
+            	txtBits.setVisible(true);
+            	lblKey.setVisible(false);
+            	txtKey.setVisible(false);
             }
         });
 	    
@@ -197,6 +203,10 @@ public class PanelReceiver {
             	rbtnDecode.setBackground(Color.decode(GUI.R_MODE_COLOUR));
             	rbtnDecrypt.setBackground(Color.decode(GUI.R_RADIO_COLOUR));
             	rbtnGetSign.setBackground(Color.decode(GUI.R_MODE_COLOUR));
+            	lblBits.setVisible(true);
+            	txtBits.setVisible(true);
+            	lblKey.setVisible(true);
+            	txtKey.setVisible(true);
             }
         });
 	    
@@ -205,6 +215,10 @@ public class PanelReceiver {
             	rbtnDecode.setBackground(Color.decode(GUI.R_MODE_COLOUR));
             	rbtnDecrypt.setBackground(Color.decode(GUI.R_MODE_COLOUR));
             	rbtnGetSign.setBackground(Color.decode(GUI.R_RADIO_COLOUR));
+            	lblBits.setVisible(false);
+            	txtBits.setVisible(false);
+            	lblKey.setVisible(false);
+            	txtKey.setVisible(false);
             }
         });
 	    

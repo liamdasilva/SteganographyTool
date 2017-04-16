@@ -143,6 +143,7 @@ public class PanelSender {
 	    pnlParams.add(txtBits, c);
 	    
 	    JLabel lblKey= new JLabel("Secret Key");
+	    lblKey.setVisible(false);
 	    lblKey.setHorizontalAlignment(0);
 	    lblKey.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 	    c.fill = GridBagConstraints.HORIZONTAL;
@@ -153,6 +154,7 @@ public class PanelSender {
 	    pnlParams.add(lblKey, c);
 	 
 	    JTextField txtKey= new JTextField("ThisIsAKey");
+	    txtKey.setVisible(false);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -214,6 +216,10 @@ public class PanelSender {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	btnMsgPath.setVisible(true);
             	lblMsgPath.setVisible(false);
+            	lblBits.setVisible(true);
+            	txtBits.setVisible(true);
+            	lblKey.setVisible(false);
+            	txtKey.setVisible(false);
             	
             	rbtnEncode.setBackground(Color.decode(GUI.S_RADIO_COLOUR));
             	rbtnEncrypt.setBackground(Color.decode(GUI.S_MODE_COLOUR));
@@ -225,6 +231,10 @@ public class PanelSender {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	btnMsgPath.setVisible(true);
             	lblMsgPath.setVisible(false);
+            	lblBits.setVisible(true);
+            	txtBits.setVisible(true);
+            	lblKey.setVisible(true);
+            	txtKey.setVisible(true);
             	
             	rbtnEncode.setBackground(Color.decode(GUI.S_MODE_COLOUR));
             	rbtnEncrypt.setBackground(Color.decode(GUI.S_RADIO_COLOUR));
@@ -236,6 +246,10 @@ public class PanelSender {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	btnMsgPath.setVisible(false);
             	lblMsgPath.setVisible(true);
+            	lblBits.setVisible(false);
+            	txtBits.setVisible(false);
+            	lblKey.setVisible(false);
+            	txtKey.setVisible(false);
             	
             	rbtnEncode.setBackground(Color.decode(GUI.S_MODE_COLOUR));
             	rbtnEncrypt.setBackground(Color.decode(GUI.S_MODE_COLOUR));

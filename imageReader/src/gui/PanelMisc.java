@@ -29,6 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import modes.DecodeImage;
 import modes.EncodeImage;
+import modes.Utilities;
 import modes.readImage;
 
 public class PanelMisc {
@@ -113,23 +114,23 @@ public class PanelMisc {
 	    c.gridy = 3;
 	    pnlParams.add(txtOutputFile, c);
 	    
-	    JLabel lblKey = new JLabel("Secret Key");
-	    lblKey.setHorizontalAlignment(0);
-	    lblKey.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-	    c.fill = GridBagConstraints.HORIZONTAL;
-	    c.gridwidth = 1;
-	    c.weightx = 0.1;
-	    c.gridx = 0;
-	    c.gridy = 4;
-	    pnlParams.add(lblKey, c);
-	 
-	    JTextField txtKey= new JTextField("ThisIsAKey");
-	    c.fill = GridBagConstraints.BOTH;
-	    c.gridwidth = 2;
-	    c.weightx = 1.0;
-	    c.gridx = 1;
-	    c.gridy = 4;
-	    pnlParams.add(txtKey, c);
+//	    JLabel lblKey = new JLabel("Secret Key");
+//	    lblKey.setHorizontalAlignment(0);
+//	    lblKey.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+//	    c.fill = GridBagConstraints.HORIZONTAL;
+//	    c.gridwidth = 1;
+//	    c.weightx = 0.1;
+//	    c.gridx = 0;
+//	    c.gridy = 4;
+//	    pnlParams.add(lblKey, c);
+//	 
+//	    JTextField txtKey= new JTextField("ThisIsAKey");
+//	    c.fill = GridBagConstraints.BOTH;
+//	    c.gridwidth = 2;
+//	    c.weightx = 1.0;
+//	    c.gridx = 1;
+//	    c.gridy = 4;
+//	    pnlParams.add(txtKey, c);
 	    
 	    pnlMisc.add(pnlParams);
 	    
@@ -156,11 +157,17 @@ public class PanelMisc {
 	    rbtnDecodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR)); 
         rbtnDecodeM.setActionCommand(decodeStringM);
         pnlModes.add(rbtnDecodeM);
+        
+        JRadioButton rbtnDoShiftM = new JRadioButton("Perform all 7 shifts");
+        rbtnDoShiftM.setBackground(Color.decode(GUI.M_MODE_COLOUR)); 
+        rbtnDoShiftM.setActionCommand("Perform all 7 shifts");
+        pnlModes.add(rbtnDoShiftM);
 
 	    
         ButtonGroup group = new ButtonGroup();
         group.add(rbtnEncodeM);
         group.add(rbtnDecodeM);
+        group.add(rbtnDoShiftM);
 	    
 	    JButton btnSubmit = new JButton("Run Program");
 	    btnSubmit.setEnabled(false);
@@ -197,6 +204,19 @@ public class PanelMisc {
             	txtMsgPath.setVisible(false);
             	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
             	txtOutputFile.setText(outputFileNoExt + ".txt");
+            	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
+            }
+        });
+	    
+	    rbtnDoShiftM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	rbtnEncodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
+            	rbtnDoShiftM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
+            	
+            	btnMsgPath.setVisible(false);
+            	txtMsgPath.setVisible(false);
+            	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
+            	txtOutputFile.setText(outputFileNoExt + ".PNG");
             	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
             }
         });
@@ -248,11 +268,11 @@ public class PanelMisc {
 	        }
 	    });
         
-        txtKey.addKeyListener(new KeyAdapter() {
-	        public void keyReleased(KeyEvent e) { //watch for key strokes
-	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
-	        }
-	    });
+//        txtKey.addKeyListener(new KeyAdapter() {
+//	        public void keyReleased(KeyEvent e) { //watch for key strokes
+//	        	UtilitiesGUI.decideBtnSubmitEnabled(pnlParams, btnSubmit);
+//	        }
+//	    });
         
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,6 +302,11 @@ public class PanelMisc {
             			JOptionPane.showMessageDialog(frame,"Image decodings unsuccessful. Please try again. \nOutput can be found here: " + txtOutputPath.getText(),"Failure",0);
             			e.printStackTrace();
             		}    				
+            	}else if(rbtnDoShiftM.isSelected()){
+            		Utilities.shiftBits(txtInputPath.getText(), 1, outputFileNumberless + 1 + ".PNG");
+            		for (int i=2;i<8;i++){
+            			Utilities.shiftBits(outputFileNumberless + (i-1) + ".PNG", 1, outputFileNumberless + i + ".PNG");
+            		}
             	}
             }
         });	    

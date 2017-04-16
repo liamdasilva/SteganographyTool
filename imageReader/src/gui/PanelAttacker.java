@@ -86,7 +86,7 @@ public class PanelAttacker {
 	    c.gridy = 2;
 	    pnlParams.add(lblOutputFile, c);
 	 
-	    JTextField txtOutputFile = new JTextField("output - attacker.png");
+	    JTextField txtOutputFile = new JTextField("output - attacker.PNG");
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;

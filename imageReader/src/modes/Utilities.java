@@ -263,7 +263,7 @@ public class Utilities {
 		if(bitsToGet>8||bitsToGet<=0){
 			return false;
 		}
-		int intToAnd = (int)Math.pow(2, bitsToGet)-1;
+		byte intToAnd = (byte) (Math.pow(2, bitsToGet)-1);
 		BufferedImage img = getBufferedImageFromFile(imageName);
 		
 		try {
@@ -273,9 +273,9 @@ public class Utilities {
 					int r = curColor.getRed();
 					int g = curColor.getGreen();
 					int b = curColor.getBlue();
-					r = r&0b00000011;
-					g = g&0b00000011;
-					b = b&0b00000011;
+					r = r&intToAnd;
+					g = g&intToAnd;
+					b = b&intToAnd;
 					int average = (r+g+b)/3;
 					int x = 0;
 					if (average==0){

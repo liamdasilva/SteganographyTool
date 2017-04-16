@@ -67,7 +67,7 @@ public class UtilitiesGUI {
 	
 	public static void chooseFolder(JFrame frame, JTextField txtOutputPath){
 		JFileChooser fileChooser = new JFileChooser();
-    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+File.separator+"Desktop"));
     	fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     	int result = fileChooser.showOpenDialog(frame);
     	if (result == JFileChooser.APPROVE_OPTION) {
@@ -78,7 +78,7 @@ public class UtilitiesGUI {
 	
 	public static void chooseFile(JFrame frame, JTextField txtMsgPath){
     	JFileChooser fileChooser = new JFileChooser();
-    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+File.separator+"Desktop"));
     	int result = fileChooser.showOpenDialog(frame);
     	if (result == JFileChooser.APPROVE_OPTION) {
     	    File selection = fileChooser.getSelectedFile();
@@ -88,7 +88,7 @@ public class UtilitiesGUI {
 	
 	public static void chooseImage(JFrame frame, JTextField txtInputPath){
 		JFileChooser fileChooser = new JFileChooser();
-    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+File.separator+"Desktop"));
     	FileNameExtensionFilter filter = new FileNameExtensionFilter(
     	        "PNG Images", "png");
     	    fileChooser.setFileFilter(filter);
