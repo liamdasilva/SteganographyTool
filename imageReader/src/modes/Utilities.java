@@ -264,6 +264,7 @@ public class Utilities {
 			return false;
 		}
 		byte intToAnd = (byte) (Math.pow(2, bitsToGet)-1);
+		double doubleToDivide = (Math.pow(2, bitsToGet)-1);
 		BufferedImage img = getBufferedImageFromFile(imageName);
 		
 		try {
@@ -276,18 +277,14 @@ public class Utilities {
 					r = r&intToAnd;
 					g = g&intToAnd;
 					b = b&intToAnd;
-					int average = (r+g+b)/3;
-					int x = 0;
-					if (average==0){
-						x=0;
-					}else if(average==1){
-						x=85;
-					}else if(average==2){
-						x=170;
-					}else if(average==3){
-						x=255;
-					}
-					Color newc = new Color(x,x,x,curColor.getAlpha());
+//					int average = (r+g+b)/3;
+//					int x = (int)((double)average/doubleToDivide*255);
+					r = (int)((double)r/doubleToDivide*255);
+					g = (int)((double)g/doubleToDivide*255);
+					b = (int)((double)b/doubleToDivide*255);
+//					System.out.println("average:" +average +" x:"+x);
+					
+					Color newc = new Color(r,g,b,curColor.getAlpha());
 					img.setRGB(j, i, newc.getRGB());
 				}
 			}
