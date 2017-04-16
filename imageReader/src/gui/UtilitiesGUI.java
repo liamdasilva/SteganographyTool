@@ -54,7 +54,9 @@ public class UtilitiesGUI {
 	public static void refreshPicture(JTextField txtInputPath){
 		try {
 			BufferedImage img = ImageIO.read(new File(txtInputPath.getText()));
-			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth()*GUI.PIC_WIDTH_SCALE+0.5), (int)(GUI.pnlPic.getHeight()*GUI.PIC_HEIGHT_SCALE+0.5), Image.SCALE_DEFAULT);
+			float whratio = (float) (img.getWidth()) / (float)(img.getHeight());
+			float hwratio = (float) (img.getHeight()) / (float)(img.getWidth());
+			Image scaledImg = img.getScaledInstance((int)(GUI.pnlPic.getWidth() * whratio), (int)(GUI.pnlPic.getHeight() * hwratio), Image.SCALE_SMOOTH);
 			ImageIcon imgIcon = new ImageIcon(scaledImg);
 			GUI.inputPic.setIcon(imgIcon);
 			GUI.lblNotFound.setText("");
