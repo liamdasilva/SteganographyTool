@@ -98,7 +98,7 @@ public class PanelSender {
 	    c.gridy = 2;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + File.separator+"Desktop"+File.separator+"Steganography");
+	    JTextField txtOutputPath = new JTextField(GUI.outputStorageLocation);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -343,12 +343,18 @@ public class PanelSender {
 					}
     				    				
             	}else if(rbtnSign.isSelected()){
-            		success = Utilities.signImage(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete);
-            		if (success){
-        				JOptionPane.showMessageDialog(frame,"Success!\nSignature encoded into image.\nPlease view output file: " + outputFilePathComplete,"Success!",1);
-        			}else{
+        			try{
+        				success = Utilities.signImage(txtInputPath.getText(), txtMsgPath.getText(), outputFilePathComplete);
+                		if (success){
+            				JOptionPane.showMessageDialog(frame,"Success!\nSignature encoded into image.\nPlease view output file: " + outputFilePathComplete,"Success!",1);
+            			}else{
+            				JOptionPane.showMessageDialog(frame,"Signature encoding unsuccessful. Please try again.","Failure",0);
+            			}
+        			}catch(Exception e){
         				JOptionPane.showMessageDialog(frame,"Signature encoding unsuccessful. Please try again.","Failure",0);
+        				e.printStackTrace();
         			}
+            		
             	}
             }
         });	    

@@ -68,7 +68,7 @@ public class PanelAttacker {
 	    c.gridy = 1;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + File.separator+"Desktop");
+	    JTextField txtOutputPath = new JTextField(GUI.outputStorageLocation);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -215,19 +215,30 @@ public class PanelAttacker {
             	boolean success;
             	String outputFilePathComplete = txtOutputPath.getText() + File.separator + txtOutputFile.getText();
             	if (rbtnShift.isSelected()){
-            		success = Utilities.shiftBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
-            		if (success){
-            			JOptionPane.showMessageDialog(frame,"Image bits shifted successfully! \nPlease view results in output file: " + outputFilePathComplete ,"Success!",1);
-            		}else{
-						JOptionPane.showMessageDialog(frame,"Image bit shift unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete ,"Failure",0);
+            		try{
+            			success = Utilities.shiftBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
+            			if (success){
+                			JOptionPane.showMessageDialog(frame,"Image bits shifted successfully! \nPlease view results in output file: " + outputFilePathComplete ,"Success!",1);
+                		}else{
+    						JOptionPane.showMessageDialog(frame,"Image bit shift unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete ,"Failure",0);
+                		}
+            		}catch(Exception e){
+            			JOptionPane.showMessageDialog(frame,"Image bit shift unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete ,"Failure",0);
+            			e.printStackTrace();
             		}
             	}else if(rbtnLeastSigBit.isSelected()){
-            		success = Utilities.getLeastSigBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
-            		if (success){
-            			JOptionPane.showMessageDialog(frame,"Least significant bit analysis completed successfully! \nPlease view results in output file: " + outputFilePathComplete,"Success!",1);
-            		}else{
-						JOptionPane.showMessageDialog(frame,"Least significant bit analysis was unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
+            		try{
+            			success = Utilities.getLeastSigBits(txtInputPath.getText(), Integer.parseInt(txtBits.getText()), outputFilePathComplete);
+            			if (success){
+                			JOptionPane.showMessageDialog(frame,"Least significant bit analysis completed successfully! \nPlease view results in output file: " + outputFilePathComplete,"Success!",1);
+                		}else{
+    						JOptionPane.showMessageDialog(frame,"Least significant bit analysis was unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete,"Failure",0);
+                		}
+            		}catch(Exception e){
+            			JOptionPane.showMessageDialog(frame,"Image bit shift unsuccessful. Please try again. \nOutput can be found here: " + outputFilePathComplete ,"Failure",0);
+            			e.printStackTrace();
             		}
+            		
             	}	    				
             }
         });	    

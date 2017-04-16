@@ -71,7 +71,7 @@ public class PanelReceiver {
 	    c.gridy = 1;
 	    pnlParams.add(btnOutputPath, c);
 	 
-	    JTextField txtOutputPath = new JTextField(System.getProperty("user.home") + "\\Desktop");
+	    JTextField txtOutputPath = new JTextField(GUI.outputStorageLocation);
 	    c.fill = GridBagConstraints.BOTH;
 	    c.gridwidth = 2;
 	    c.weightx = 1.0;
@@ -303,6 +303,7 @@ public class PanelReceiver {
             			}
             		}catch(Exception e){
         				JOptionPane.showMessageDialog(frame,"Error encountered while getting signature. Please try again.","Failure!",1);
+        				e.printStackTrace();
             		}
             	}
             }
