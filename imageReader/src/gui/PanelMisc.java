@@ -186,6 +186,7 @@ public class PanelMisc {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	rbtnEncodeM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
             	rbtnDecodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
+            	rbtnDoShiftM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
 
             	String outputFileNoExt = txtOutputFile.getText().substring(0, txtOutputFile.getText().lastIndexOf("."));
             	txtOutputFile.setText(outputFileNoExt + ".PNG");
@@ -199,6 +200,7 @@ public class PanelMisc {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	rbtnEncodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
             	rbtnDecodeM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
+            	rbtnDoShiftM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
             	
             	btnMsgPath.setVisible(false);
             	txtMsgPath.setVisible(false);
@@ -211,6 +213,7 @@ public class PanelMisc {
 	    rbtnDoShiftM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	rbtnEncodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
+            	rbtnDecodeM.setBackground(Color.decode(GUI.M_MODE_COLOUR));
             	rbtnDoShiftM.setBackground(Color.decode(GUI.M_RADIO_COLOUR));
             	
             	btnMsgPath.setVisible(false);

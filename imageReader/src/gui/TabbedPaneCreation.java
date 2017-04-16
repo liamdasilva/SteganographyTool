@@ -191,8 +191,6 @@ public class TabbedPaneCreation {
 			String sndMsgExt = sndMsgPath.getText().substring(sndMsgPath.getText().lastIndexOf(".")+1);
 			if (sndMsgPath.getText().lastIndexOf("\\") == -1){ //signature must have been used
 				sndMsgExt = "txt";
-			}else{
-				sndMsgExt = "png";
 			}
 			
 			String curOutputFileNoExt = null;
@@ -202,8 +200,10 @@ public class TabbedPaneCreation {
 			
 			curInputPath.setText(sndOutputFileCompletePath);
 			curOutputPath.setText(sndOutputPath.getText());
-			if(sndMsgExt.equals("")){
+			if(sndMsgExt.equals("") && curIndex == 1){  //for receiver, default to .txt
 				curOutputFile.setText(curOutputFileNoExt + ".txt");
+			}else if (curIndex == 2){                   //for attacker, set to .PNG
+				curOutputFile.setText(curOutputFileNoExt + ".PNG");
 			}else{
 				curOutputFile.setText(curOutputFileNoExt + "." + sndMsgExt);
 			}
